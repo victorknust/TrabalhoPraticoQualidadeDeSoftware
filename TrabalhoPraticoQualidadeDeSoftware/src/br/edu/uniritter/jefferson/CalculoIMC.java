@@ -1,5 +1,9 @@
 package br.edu.uniritter.jefferson;
 
+import br.edu.uniritter.jefferson.enums.Sexo;
+import br.edu.uniritter.jefferson.enums.SituacaoIMC;
+import br.edu.uniritter.jefferson.exception.SituacaoIMCException;
+
 public class CalculoIMC {
 	
 	private double peso;
@@ -8,7 +12,8 @@ public class CalculoIMC {
 	private double imc;
 	
 	public CalculoIMC() {
-		// TODO
+		this.peso = 0.0;
+		this.altura = 0.0;
 	}
 
 	public double getPeso() {
@@ -38,8 +43,58 @@ public class CalculoIMC {
 	public double getImc() {
 		return imc;
 	}
+	
+	public SituacaoIMC getSituacaoIMC() throws SituacaoIMCException {
+		this.calcularIMC();
+		
+		if(this.sexo == null) {
+			throw new SituacaoIMCException("O valor do sexo nao foi denido!");
+		}
+		
+		return this.sexo == Sexo.Masculino ? this.getSituacaoIMCMasculino() : this.getSituacaiIMCFeminino();
+	}
+	
+	private void calcularIMC() throws SituacaoIMCException {
+		this.validarDadosParaCalculoDoIMC();
+		
+		this.imc = this.peso / Math.pow(this.altura, 2);
+	}
 
-	public void setImc(double imc) {
-		this.imc = imc;
+	private void validarDadosParaCalculoDoIMC() throws SituacaoIMCException {
+		if(this.altura <= 0.0) {
+			throw new SituacaoIMCException("Informacao de altura incorreto ou inexistente!");
+		}
+		
+		if(this.peso <= 0.0) {
+			throw new SituacaoIMCException("Informacao de peso incorreto ou inexistente!");
+		}
+	}
+
+	private SituacaoIMC getSituacaoIMCMasculino() {
+		SituacaoIMC situacao = null;
+		
+		if(imc < 20.7) {
+			situacao = SituacaoIMC.AbaixoDoPeso;
+		} else if(imc >= 20.7 && imc <= 26.4) {
+			situacao = SituacaoIMC.Ideal;
+		} else {
+			situacao = SituacaoIMC.Obeso;
+		}
+		
+		return situacao;
+	}
+	
+	private SituacaoIMC getSituacaiIMCFeminino() {
+		SituacaoIMC situacao = null;
+		
+		if(imc < 19.1) {
+			situacao = SituacaoIMC.AbaixoDoPeso;
+		} else if(imc >= 19.1 && imc <= 25.8) {
+			situacao = SituacaoIMC.Ideal;
+		} else {
+			situacao = SituacaoIMC.Obeso;
+		}
+		
+		return situacao;
 	}
 }
