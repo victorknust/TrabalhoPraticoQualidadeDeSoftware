@@ -54,13 +54,14 @@ public class CalculoIMC {
 		return this.sexo == Sexo.Masculino ? this.getSituacaoIMCMasculino() : this.getSituacaiIMCFeminino();
 	}
 	
-	private void calcularIMC() throws SituacaoIMCException {
+	protected void calcularIMC() throws SituacaoIMCException {
 		this.validarDadosParaCalculoDoIMC();
 		
 		this.imc = this.peso / Math.pow(this.altura, 2);
+		System.out.println("IMC = " + this.imc);
 	}
 
-	private void validarDadosParaCalculoDoIMC() throws SituacaoIMCException {
+	protected void validarDadosParaCalculoDoIMC() throws SituacaoIMCException {
 		if(this.altura <= 0.0) {
 			throw new SituacaoIMCException("Informacao de altura incorreto ou inexistente!");
 		}
@@ -70,7 +71,7 @@ public class CalculoIMC {
 		}
 	}
 
-	private SituacaoIMC getSituacaoIMCMasculino() {
+	protected SituacaoIMC getSituacaoIMCMasculino() {
 		SituacaoIMC situacao = null;
 		
 		if(imc < 20.7) {
@@ -84,7 +85,7 @@ public class CalculoIMC {
 		return situacao;
 	}
 	
-	private SituacaoIMC getSituacaiIMCFeminino() {
+	protected SituacaoIMC getSituacaiIMCFeminino() {
 		SituacaoIMC situacao = null;
 		
 		if(imc < 19.1) {
