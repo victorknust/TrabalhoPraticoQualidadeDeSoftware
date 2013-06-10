@@ -1,4 +1,4 @@
-package br.edu.uniritter.jefferson.exception;
+package br.edu.uniritter.jefferson.imc.exception;
 
 public class SituacaoIMCException extends Exception {
 

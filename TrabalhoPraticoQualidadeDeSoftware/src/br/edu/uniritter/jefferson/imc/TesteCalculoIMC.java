@@ -1,12 +1,12 @@
-package br.edu.uniritter.jefferson;
+package br.edu.uniritter.jefferson.imc;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.edu.uniritter.jefferson.enums.Sexo;
-import br.edu.uniritter.jefferson.enums.SituacaoIMC;
-import br.edu.uniritter.jefferson.exception.SituacaoIMCException;
+import br.edu.uniritter.jefferson.imc.enums.Sexo;
+import br.edu.uniritter.jefferson.imc.enums.SituacaoIMC;
+import br.edu.uniritter.jefferson.imc.exception.SituacaoIMCException;
 
 public class TesteCalculoIMC {
 
