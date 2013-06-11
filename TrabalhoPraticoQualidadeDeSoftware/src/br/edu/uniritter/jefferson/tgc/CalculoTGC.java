@@ -1,5 +1,7 @@
 package br.edu.uniritter.jefferson.tgc;
 
+import java.text.DecimalFormat;
+
 import br.edu.uniritter.jefferson.imc.CalculoIMC;
 import br.edu.uniritter.jefferson.imc.enums.Sexo;
 import br.edu.uniritter.jefferson.imc.exception.SituacaoIMCException;
@@ -37,8 +39,11 @@ public class CalculoTGC extends CalculoIMC {
 		SituacaoTGC situacao = null;
 		double[] indices = super.getSexo().equals(Sexo.Masculino) ? this.getSituacaoTGCMasculino() : this.getSituacaoTGCFeminino();
 		
-		double ideal = indices[0];
-		double aceitavel = indices[1];
+		DecimalFormat decimalFormat = new DecimalFormat();
+		decimalFormat.setMaximumFractionDigits(1);
+		
+		double ideal = this.tratarCasasDecimais(indices[0]);
+		double aceitavel = this.tratarCasasDecimais(indices[1]);
 		
 		if(this.tgc < ideal) {
 			situacao = SituacaoTGC.AbaixoDoIdeal;
@@ -109,11 +114,20 @@ public class CalculoTGC extends CalculoIMC {
 			int sexo = super.getSexo() == Sexo.Masculino ? 1 : 0;
 			
 			this.tgc = (1.2 * imc) - (10.8 * sexo) + (0.23 * this.idade) - 5.4;
+			this.tgc = this.tratarCasasDecimais(this.tgc);
+			
 			System.out.println("TGC = " + this.tgc);
 			
 		} catch(SituacaoIMCException e) {
 			throw new TGCException("Falha no calculo do TGC!", e);
 		}
+	}
+
+	private double tratarCasasDecimais(double valor) {
+		DecimalFormat decimalFormat = new DecimalFormat();
+		decimalFormat.setMaximumFractionDigits(1);
+		
+		 return Double.parseDouble(decimalFormat.format(valor).toString().replace(',', '.'));
 	}
 
 	protected void validarDadosParaCalculoTGC() throws TGCException {
