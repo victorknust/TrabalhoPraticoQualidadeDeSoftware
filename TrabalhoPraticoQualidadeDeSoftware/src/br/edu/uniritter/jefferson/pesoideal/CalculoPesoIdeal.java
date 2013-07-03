@@ -9,10 +9,10 @@ public class CalculoPesoIdeal {
 	
 	private double altura;
 	private Sexo sexo;
-	private double pesoIdeial;
+	private double pesoIdeal;
 	
 	public CalculoPesoIdeal() {
-		this.pesoIdeial = 0.0;
+		this.pesoIdeal = 0.0;
 	}
 
 	public double getAltura() {
@@ -33,7 +33,7 @@ public class CalculoPesoIdeal {
 
 	public double getPesoIdeial() throws PesoIdealException {
 		this.calcularPesoIdeial();
-		return pesoIdeial;
+		return this.pesoIdeal;
 	}
 
 	private void calcularPesoIdeial() throws PesoIdealException {
@@ -42,12 +42,12 @@ public class CalculoPesoIdeal {
 		int k = (this.sexo.equals(Sexo.Masculino) ? 4 : 2);
 		double h = this.altura * 100;
 		
-		this.pesoIdeial = (h - 100) - (h - 150) / k;
+		this.pesoIdeal = (h - 100) - (h - 150) / k;
 	}
 	
 	private void validarDadosParaCalcularPesoIdeal() throws PesoIdealException {
 		if(this.sexo ==  null) {
-			throw new PesoIdealException("Campos inválidos ou inezistentes!");
+			throw new PesoIdealException("Campos invï¿½lidos ou inezistentes!");
 		}
 	}
 	

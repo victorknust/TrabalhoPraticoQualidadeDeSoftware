@@ -1,0 +1,19 @@
+#titulo {
+	font-weight: bold;
+}
+
+#autores {
+	font-style: italic;
+}
+
+#resultado div {
+	color: #CC0000;
+}
+
+.divResult {
+	float: left;
+	width: 250px;
+	margin-left: 5px;
+	margin-top: 5px;
+	border: 1px solid #000000;
+}

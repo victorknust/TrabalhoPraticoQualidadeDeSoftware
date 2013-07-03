@@ -12,6 +12,7 @@ public class CalculoTGC extends CalculoIMC {
 
 	private int idade;
 	private double tgc;
+	private SituacaoTGC situacaoTGC;
 	
 	public CalculoTGC() {
 		this.idade = 0;
@@ -57,7 +58,8 @@ public class CalculoTGC extends CalculoIMC {
 			situacao = SituacaoTGC.AcimaDoAceitavel;
 		}
 		
-		return situacao;
+		this.situacaoTGC = situacao;
+		return this.situacaoTGC;
 	}
 
 	private double[] getSituacaoTGCFeminino() {

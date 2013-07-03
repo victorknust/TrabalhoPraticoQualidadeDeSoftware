@@ -10,6 +10,7 @@ public class CalculoIMC {
 	private double altura;
 	private Sexo sexo;
 	private double imc;
+	private SituacaoIMC situacaoIMG;
 	
 	public CalculoIMC() {
 		this.peso = 0.0;
@@ -51,7 +52,8 @@ public class CalculoIMC {
 			throw new SituacaoIMCException("O valor do sexo nao foi denido!");
 		}
 		
-		return this.sexo == Sexo.Masculino ? this.getSituacaoIMCMasculino() : this.getSituacaiIMCFeminino();
+		this.situacaoIMG = this.sexo == Sexo.Masculino ? this.getSituacaoIMCMasculino() : this.getSituacaiIMCFeminino();
+		return this.situacaoIMG;
 	}
 	
 	protected void calcularIMC() throws SituacaoIMCException {
