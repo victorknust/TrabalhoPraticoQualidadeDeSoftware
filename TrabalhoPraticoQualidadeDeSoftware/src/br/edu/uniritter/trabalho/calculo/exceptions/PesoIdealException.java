@@ -1,4 +1,4 @@
-package br.edu.uniritter.jefferson.pesoideal.exception;
+package br.edu.uniritter.trabalho.calculo.exceptions;
 
 public class PesoIdealException extends Exception {
 

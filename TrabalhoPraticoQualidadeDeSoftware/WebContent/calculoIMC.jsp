@@ -6,14 +6,14 @@
 		<link rel="stylesheet" href="css/default.css" />
 		<script src="javascript/jQuery.js"></script>
 		<script src="javascript/default.js"></script>
-		<title>Calculo IMG</title>
+		<title>Calculo IMC</title>
 	</head>
 	<body>
 		<div id="footer"><%@ include file="include/footer.jsp" %></div>
 		<div id="body">
 			<form action="calculoIMC" method="post" objeto="imc">
 				<fieldset>
-					<legend>Cálculo IMG</legend>
+					<legend>Cálculo IMC</legend>
 					
 					<label for="txtAltura">Altura</label><input type="text" id="txtAltura" />
 					<label for="txtPeso">Peso</label><input type="text" id="txtPeso" />

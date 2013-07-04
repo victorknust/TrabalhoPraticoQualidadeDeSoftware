@@ -47,11 +47,11 @@ function executeAjaxRequest(url, httpMethod, parameters) {
 
 function calculeIMC(dataRequest) {
 	var result = $("<div>").addClass("divResult").html(
-		  "Altura: " + dataRequest.altura
+		  "Altura: " + dataRequest.pessoa.altura
 		+ "<br />"
-		+ "Peso: " + dataRequest.peso
+		+ "Peso: " + dataRequest.pessoa.peso
 		+ "<br />"
-		+ "Sexo: " + dataRequest.sexo
+		+ "Sexo: " + dataRequest.pessoa.sexo
 		+ "<br />"
 		+ "IMC: " + dataRequest.imc
 		+ "<br />"
@@ -62,13 +62,13 @@ function calculeIMC(dataRequest) {
 
 function calculeTGC(dataRequest) {
 	var result = $("<div>").addClass("divResult").html(
-		  "Altura: " + dataRequest.altura
+		  "Altura: " + dataRequest.pessoa.altura
 		+ "<br />"
-		+ "Peso: " + dataRequest.peso
+		+ "Peso: " + dataRequest.pessoa.peso
 		+ "<br />"
-		+ "Sexo: " + dataRequest.sexo
+		+ "Sexo: " + dataRequest.pessoa.sexo
 		+ "<br />"
-		+ "Idade: " + dataRequest.idade
+		+ "Idade: " + dataRequest.pessoa.idade
 		+ "<br />"
 		+ "TGC: " + dataRequest.tgc
 		+ "<br />"
@@ -81,7 +81,7 @@ function calculePesoIdeal(dataRequest) {
 	var result = $("<div>").addClass("divResult").html(
 		  "Altura: " + dataRequest.altura
 		+ "<br />"
-		+ "Sexo: " + dataRequest.sexo
+		+ "Sexo: " + dataRequest.pessoa.sexo
 		+ "<br />"
 		+ "Peso Ideal: " + dataRequest.pesoIdeal);
 	

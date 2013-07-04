@@ -1,4 +1,4 @@
-package br.edu.uniritter.jefferson.imc.enums;
+package br.edu.uniritter.trabalho.entity;
 
 public enum Sexo {
 	Masculino, Feminino;

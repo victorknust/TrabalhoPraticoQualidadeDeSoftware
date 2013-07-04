@@ -6,7 +6,7 @@
 	 
   <servlet>
     <servlet-name>CalculoIMC</servlet-name>
-    <servlet-class>br.edu.uniritter.jefferson.servlet.CalculoIMCServlet</servlet-class>
+    <servlet-class>br.edu.uniritter.trabalho.servlet.CalculoIMCServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CalculoIMC</servlet-name>
@@ -15,7 +15,7 @@
   
   <servlet>
     <servlet-name>CalculoTGC</servlet-name>
-    <servlet-class>br.edu.uniritter.jefferson.servlet.CalculoTGCServlet</servlet-class>
+    <servlet-class>br.edu.uniritter.trabalho.servlet.CalculoTGCServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CalculoTGC</servlet-name>
@@ -24,7 +24,7 @@
   
   <servlet>
     <servlet-name>PesoIdeal</servlet-name>
-    <servlet-class>br.edu.uniritter.jefferson.servlet.CalculoPesoIdealServlet</servlet-class>
+    <servlet-class>br.edu.uniritter.trabalho.servlet.CalculoPesoIdealServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PesoIdeal</servlet-name>

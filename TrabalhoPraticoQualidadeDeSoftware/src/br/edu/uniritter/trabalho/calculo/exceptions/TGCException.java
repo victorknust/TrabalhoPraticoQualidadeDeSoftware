@@ -1,17 +1,17 @@
-package br.edu.uniritter.jefferson.imc.exception;
+package br.edu.uniritter.trabalho.calculo.exceptions;
 
-public class SituacaoIMCException extends Exception {
+public class TGCException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	private String mensagem;
 	private Throwable causa;
-
-	public SituacaoIMCException(String mensagem, Throwable causa) {
+	
+	public TGCException(String mensagem, Throwable causa) {
 		this.mensagem = mensagem;
 		this.causa = causa;
 	}
 
-	public SituacaoIMCException(String mensagem) {
+	public TGCException(String mensagem) {
 		this.mensagem = mensagem;
 	}
 

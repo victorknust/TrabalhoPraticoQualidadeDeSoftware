@@ -1,4 +1,4 @@
-package br.edu.uniritter.jefferson.servlet;
+package br.edu.uniritter.trabalho.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,16 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.edu.uniritter.jefferson.imc.enums.Sexo;
-import br.edu.uniritter.jefferson.tgc.CalculoTGC;
-import br.edu.uniritter.jefferson.tgc.exception.TGCException;
+import br.edu.uniritter.trabalho.calculo.Calculo;
+import br.edu.uniritter.trabalho.calculo.Factory;
+import br.edu.uniritter.trabalho.calculo.exceptions.PesoIdealException;
+import br.edu.uniritter.trabalho.entity.Pessoa;
+import br.edu.uniritter.trabalho.strategy.Strategy;
 
 import com.google.gson.Gson;
 
 /**
  * Servlet implementation class CalculoIMGServlet
  */
-public class CalculoTGCServlet extends HttpServlet {
+public class CalculoPesoIdealServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,12 +46,13 @@ public class CalculoTGCServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try{
-			CalculoTGC calculo = this.carregaCalculoTGC(request);
-			calculo.getSituacaoTGC();
+			Pessoa pessoa = new Strategy().getPessoaInstance(this, request);
+			Calculo calculo = Factory.getCalculoPesoIdealInstance(pessoa);
+			calculo.calcular();
 			
 			out.print(new Gson().toJson(calculo));
 		}
-		catch (TGCException e) {
+		catch (Exception e) {
 			e.printStackTrace(out);
 		}
 		finally {
@@ -57,27 +60,5 @@ public class CalculoTGCServlet extends HttpServlet {
 				out.close();
 			}
 		}
-	}
-	
-	private CalculoTGC carregaCalculoTGC(HttpServletRequest request) {
-		CalculoTGC calculo = new CalculoTGC();
-		
-		try {
-			calculo.setAltura(Double.parseDouble(request.getParameter("txtAltura")));
-			calculo.setPeso(Double.parseDouble(request.getParameter("txtPeso")));
-			calculo.setIdade(Integer.parseInt(request.getParameter("txtIdade")));
-			
-			if(request.getParameter("slSexo").equalsIgnoreCase("m")) {
-				calculo.setSexo(Sexo.Masculino);
-			}
-			else {
-				calculo.setSexo(Sexo.Feminino);
-			}
-		}
-		catch (Exception e) {
-			calculo = null;
-		}
-		
-		return calculo;
 	}
 }

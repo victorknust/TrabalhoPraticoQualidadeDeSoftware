@@ -1,4 +1,4 @@
-package br.edu.uniritter.jefferson.servlet;
+package br.edu.uniritter.trabalho.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.edu.uniritter.jefferson.imc.enums.Sexo;
-import br.edu.uniritter.jefferson.pesoideal.CalculoPesoIdeal;
-import br.edu.uniritter.jefferson.pesoideal.exception.PesoIdealException;
+import br.edu.uniritter.trabalho.calculo.Calculo;
+import br.edu.uniritter.trabalho.calculo.Factory;
+import br.edu.uniritter.trabalho.entity.Pessoa;
+import br.edu.uniritter.trabalho.strategy.Strategy;
 
 import com.google.gson.Gson;
 
 /**
  * Servlet implementation class CalculoIMGServlet
  */
-public class CalculoPesoIdealServlet extends HttpServlet {
+public class CalculoIMCServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,16 +41,17 @@ public class CalculoPesoIdealServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
+		response.setContentType("applicatino/json");
 		PrintWriter out = response.getWriter();
 		
 		try{
-			CalculoPesoIdeal calculo = this.carregaCalculoPesoIdeal(request);
-			calculo.getPesoIdeial();
+			Pessoa pessoa = new Strategy().getPessoaInstance(this, request);
+			Calculo calculo = Factory.getCalculoIMCInstance(pessoa);
+			calculo.getSituacao();
 			
 			out.print(new Gson().toJson(calculo));
 		}
-		catch (PesoIdealException e) {
+		catch (Exception e) {
 			e.printStackTrace(out);
 		}
 		finally {
@@ -57,25 +59,5 @@ public class CalculoPesoIdealServlet extends HttpServlet {
 				out.close();
 			}
 		}
-	}
-	
-	private CalculoPesoIdeal carregaCalculoPesoIdeal(HttpServletRequest request) {
-		CalculoPesoIdeal calculo = new CalculoPesoIdeal();
-		
-		try {
-			calculo.setAltura(Double.parseDouble(request.getParameter("txtAltura")));
-			
-			if(request.getParameter("slSexo").equalsIgnoreCase("m")) {
-				calculo.setSexo(Sexo.Masculino);
-			}
-			else {
-				calculo.setSexo(Sexo.Feminino);
-			}
-		}
-		catch (Exception e) {
-			calculo = null;
-		}
-		
-		return calculo;
 	}
 }

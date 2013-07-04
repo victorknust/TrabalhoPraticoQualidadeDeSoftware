@@ -1,4 +1,4 @@
-package br.edu.uniritter.jefferson.servlet;
+package br.edu.uniritter.trabalho.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.edu.uniritter.jefferson.imc.CalculoIMC;
-import br.edu.uniritter.jefferson.imc.enums.Sexo;
-import br.edu.uniritter.jefferson.imc.exception.SituacaoIMCException;
+import br.edu.uniritter.trabalho.calculo.Calculo;
+import br.edu.uniritter.trabalho.calculo.Factory;
+import br.edu.uniritter.trabalho.entity.Pessoa;
+import br.edu.uniritter.trabalho.strategy.Strategy;
 
 import com.google.gson.Gson;
 
 /**
  * Servlet implementation class CalculoIMGServlet
  */
-public class CalculoIMCServlet extends HttpServlet {
+public class CalculoTGCServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,16 +41,17 @@ public class CalculoIMCServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("applicatino/json");
+		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		
 		try{
-			CalculoIMC calculo = this.carregaCalculoIMG(request);
-			calculo.getSituacaoIMC();
+			Pessoa pessoa = new Strategy().getPessoaInstance(this, request);
+			Calculo calculo = Factory.getCalculoTGCInstance(pessoa);
+			calculo.getSituacao();
 			
 			out.print(new Gson().toJson(calculo));
 		}
-		catch (SituacaoIMCException e) {
+		catch (Exception e) {
 			e.printStackTrace(out);
 		}
 		finally {
@@ -57,26 +59,5 @@ public class CalculoIMCServlet extends HttpServlet {
 				out.close();
 			}
 		}
-	}
-
-	private CalculoIMC carregaCalculoIMG(HttpServletRequest request) {
-		CalculoIMC calculo = new CalculoIMC();
-		
-		try {
-			calculo.setAltura(Double.parseDouble(request.getParameter("txtAltura")));
-			calculo.setPeso(Double.parseDouble(request.getParameter("txtPeso")));
-			
-			if(request.getParameter("slSexo").equalsIgnoreCase("m")) {
-				calculo.setSexo(Sexo.Masculino);
-			}
-			else {
-				calculo.setSexo(Sexo.Feminino);
-			}
-		}
-		catch (Exception e) {
-			calculo = null;
-		}
-		
-		return calculo;
 	}
 }
